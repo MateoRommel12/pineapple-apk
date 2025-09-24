@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "816459063458",
+    "project_id": "login-b2d72",
+    "storage_bucket": "login-b2d72.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816459063458:android:9dfb5741ec2f2c0075f7fb",
+        "android_client_info": {
+          "package_name": "com.pineapplesweetness.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816459063458-nncg10tg5op6mrrglrtqedc5icnilm2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBBbKEbJXL5JFxW_KyBz1NTco0l2Y_G6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816459063458-nncg10tg5op6mrrglrtqedc5icnilm2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

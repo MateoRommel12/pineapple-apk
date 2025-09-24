@@ -1,0 +1,26 @@
+# Web-specific files (exclude from mobile build)
+next.config.mjs
+tailwind.config.js
+postcss.config.mjs
+components.json
+
+# Web-only components
+public/
+app/
+
+# Build artifacts
+.next/
+.expo/
+node_modules/
+android/
+ios/
+
+# Development files
+.vscode/
+.idea/
+--p/
+-p/
+
+# Large files
+*.tsbuildinfo
+*.log

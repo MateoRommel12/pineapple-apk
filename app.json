@@ -1,0 +1,84 @@
+{
+  "expo": {
+    "name": "Pineapple Sweetness Predictor",
+    "slug": "pineapple-sweetness-predictor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+      "experiments": {
+      "newArchEnabled": false
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mel.pineapplesweetness",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.265539253245-c4bhqee3crc8859knh2p7194qfi1je58"
+        }
+      }
+    },
+    "android": {
+      "usesCleartextTraffic": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.mel.pineapplesweetness",
+      "googleServicesFile": "./google-services.json",
+      "permissions": ["INTERNET"],
+      "config": {
+        "googleSignIn": {
+          "apiKey": "YOUR-API-KEY",
+          "certificateHash": "YOUR-CERTIFICATE-HASH"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Pineapple Sweetness Predictor to access your camera to take pineapple photos."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Pineapple Sweetness Predictor to access your photos to select pineapple images."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ],
+      [
+        "expo-auth-session"
+      ],
+      [
+        "@react-native-google-signin/google-signin"
+      ],
+      [
+        "./plugins/with-tflite.js"
+      ]
+    ],
+    "scheme": "com.mel.pineapplesweetness"
+  }
+} 

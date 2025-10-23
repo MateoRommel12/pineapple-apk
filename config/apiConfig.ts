@@ -9,7 +9,7 @@
 export const API_CONFIG = {
   // Production configuration
   // Using deployed backend on Hugging Face Spaces (Gradio)
-  BASE_URL: 'https://mells12-pineapple-docker.hf.space', // Hugging Face Spaces Gradio API endpoint
+  BASE_URL: 'https://matts-12-pineapple-detector.hf.space', // Hugging Face Spaces Gradio API endpoint
   // Alternative configurations for local development:
    //BASE_URL: 'http://192.168.0.128:8000', // Local development server
   // BASE_URL: 'http://10.0.2.2:8000',      // Android Emulator

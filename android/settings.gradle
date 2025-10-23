@@ -31,7 +31,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
 }
 expoAutolinking.useExpoModules()
 
-rootProject.name = 'Pineapple Sweetness Predictor'
+rootProject.name = 'PINE-AI-PLE'
 
 expoAutolinking.useExpoVersionCatalog()
 

@@ -23,7 +23,7 @@ export default function PineappleUploader() {
 
   const initializeBackend = async () => {
     try {
-      setAnalysisStage('Connecting to backend...')
+      setAnalysisStage('Connecting...')
       
       // Initialize API service and check backend health
       await apiService.initialize()
@@ -52,18 +52,18 @@ export default function PineappleUploader() {
     try {
       if (!isBackendReady) {
         // Try to reconnect before failing
-        setAnalysisStage('Checking backend connection...')
+        setAnalysisStage('Checking connection...')
         await initializeBackend()
         
         if (!isBackendReady) {
-          throw new Error('Backend server is not available. Please check that the server is running.')
+          throw new Error('Server is not available. Please check that the server is running.')
         }
       }
 
       console.log('🔍 Starting backend pineapple analysis...', imageUri)
 
       // Send image to backend for analysis
-      setAnalysisStage('Connecting to server (It may take a minute)...')
+      setAnalysisStage('Analyzing...')
       const result = await apiService.analyzePineapple(imageUri)
 
       return result
@@ -160,7 +160,7 @@ export default function PineappleUploader() {
     if (!image) return
 
     setIsAnalyzing(true)
-    setAnalysisStage('Initializing backend analysis...')
+    setAnalysisStage('Initializing analysis...')
     try {
       const analysisResult = await analyzePineappleImage(image)
       setResult(analysisResult)
@@ -182,22 +182,6 @@ export default function PineappleUploader() {
     setResult(null)
   }
 
-  const shareResult = async () => {
-    if (!result?.sweetness) return;
-
-    try {
-      const shareMessage = `🍍 Pineapple Sweetness Analysis Results 🍍\n\n${result.sweetness.displayTitle}\nSweetness Score: ${result.sweetness.sweetness ? result.sweetness.sweetness.toFixed(1) : 'N/A'}/100\nConfidence: ${result.sweetness.confidence ? (result.sweetness.confidence * 100).toFixed(1) : 'N/A'}%\n\nRecommendation: ${result.sweetness.recommendation}\n\n🤖 Analyzed with Backend AI\n⚡ Processing time: ${result.processingTime}ms\n\n#PineappleAI #SweetnessAnalysis`;
-
-      await Share.share({
-        message: shareMessage,
-        title: 'Pineapple Analysis Results'
-      });
-    } catch (error) {
-      console.error('Error sharing result:', error);
-    }
-  };
-
-
 
   return (
     <View style={styles.container}>
@@ -217,6 +201,16 @@ export default function PineappleUploader() {
         <View style={styles.imageAnalysisContainer}>
           <View style={styles.previewContainer}>
             <Image source={{ uri: image }} style={styles.preview} />
+            
+            {/* Cancel button to remove image */}
+            <TouchableOpacity 
+              style={styles.cancelButton} 
+              onPress={resetUploader}
+              disabled={isAnalyzing}
+            >
+              <X width={20} height={20} color="white" />
+            </TouchableOpacity>
+            
             {isAnalyzing && (
               <View style={styles.analysisOverlay}>
                 <ActivityIndicator size="large" color="white" />
@@ -325,6 +319,23 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 12,
     resizeMode: 'cover',
+  },
+  cancelButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(239, 68, 68, 0.9)', // red-500 with transparency
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+    zIndex: 10,
   },
   analysisOverlay: {
     position: 'absolute',

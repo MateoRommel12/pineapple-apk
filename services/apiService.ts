@@ -701,20 +701,20 @@ class ApiService {
    * Get sweetness category from percentage
    */
   private getSweetnessCategory(sweetness: number): string {
-    if (sweetness >= 80) return 'Very Sweet';
-    if (sweetness >= 60) return 'Sweet';
-    if (sweetness >= 40) return 'Moderately Sweet';
-    return 'Mildly Sweet';
+    if (sweetness >= 80) return 'High Sweetness';
+    if (sweetness >= 60) return 'Medium Sweetness';
+    if (sweetness >= 40) return 'Low Sweetness';
+    return 'Very Low Sweetness';
   }
 
   /**
    * Get display title based on sweetness
    */
   private getDisplayTitle(sweetness: number): string {
-    if (sweetness >= 75) return 'Sweet & Ready';
-    if (sweetness >= 60) return 'Good Sweetness';
-    if (sweetness >= 45) return 'Moderate';
-    return 'Not Ripe';
+    if (sweetness >= 75) return 'High';
+    if (sweetness >= 60) return 'Medium';
+    if (sweetness >= 45) return 'Low';
+    return 'Very Low';
   }
 
   /**

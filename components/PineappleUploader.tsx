@@ -56,7 +56,7 @@ export default function PineappleUploader() {
         await initializeBackend()
         
         if (!isBackendReady) {
-          throw new Error('Connection failed. Please check your internet connection and try again.')
+          throw new Error('No Internet Connection. Please check your internet connection and try again.')
         }
       }
 
@@ -225,7 +225,7 @@ export default function PineappleUploader() {
               disabled={isAnalyzing}
             >
               <Upload width={20} height={20} color="white" />
-              <Text style={styles.analyzeText}>🤖 Analyze with Backend</Text>
+              <Text style={styles.analyzeText}>Analyze with Backend</Text>
             </TouchableOpacity>
           )}
           
@@ -242,7 +242,7 @@ export default function PineappleUploader() {
                     Processing time: {result.processingTime}ms
                   </Text>
                   <TouchableOpacity style={styles.resetButton} onPress={resetUploader}>
-                    <Text style={styles.resetText}>📸 Try Another Photo</Text>
+                    <Text style={styles.resetText}>Try Another Photo</Text>
                   </TouchableOpacity>
                 </View>
               ) : result.status === 'error' ? (
@@ -251,7 +251,7 @@ export default function PineappleUploader() {
                   <Text style={styles.errorTitle}>Connection Error</Text>
                   <Text style={styles.errorText}>{result.message}</Text>
                   <TouchableOpacity style={styles.resetButton} onPress={resetUploader}>
-                    <Text style={styles.resetText}>📸 Try Again</Text>
+                    <Text style={styles.resetText}>Try Again</Text>
                   </TouchableOpacity>
                 </View>
               ) : (

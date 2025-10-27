@@ -227,10 +227,10 @@ class LocalAnalysisService {
 
   // Helper methods for sweetness analysis
   private getSweetnessCategory(sweetness: number): string {
-    if (sweetness >= 80) return 'Very Sweet';
-    if (sweetness >= 60) return 'Sweet';
-    if (sweetness >= 40) return 'Moderately Sweet';
-    return 'Mildly Sweet';
+    if (sweetness >= 80) return 'High Sweetness';
+    if (sweetness >= 60) return 'Medium Sweetness';
+    if (sweetness >= 40) return 'Low Sweetness';
+    return 'Very Low Sweetness';
   }
 
   private getSweetnessClass(sweetness: number): string {

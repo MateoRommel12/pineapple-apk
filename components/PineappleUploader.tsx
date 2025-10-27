@@ -56,7 +56,7 @@ export default function PineappleUploader() {
         await initializeBackend()
         
         if (!isBackendReady) {
-          throw new Error('Server is not available. Please check that the server is running.')
+          throw new Error('Connection failed. Please check your internet connection and try again.')
         }
       }
 
@@ -182,7 +182,6 @@ export default function PineappleUploader() {
     setResult(null)
   }
 
-
   return (
     <View style={styles.container}>
       {!image ? (
@@ -249,7 +248,7 @@ export default function PineappleUploader() {
               ) : result.status === 'error' ? (
                 <View style={styles.errorContainer}>
                   <X width={64} height={64} color={theme.colors.red[500]} />
-                  <Text style={styles.errorTitle}>Analysis Error</Text>
+                  <Text style={styles.errorTitle}>Connection Error</Text>
                   <Text style={styles.errorText}>{result.message}</Text>
                   <TouchableOpacity style={styles.resetButton} onPress={resetUploader}>
                     <Text style={styles.resetText}>📸 Try Again</Text>

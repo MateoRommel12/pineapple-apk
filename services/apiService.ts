@@ -616,6 +616,22 @@ class ApiService {
    * Transform backend response to app-expected format
    */
   private transformBackendResponse(data: BackendPredictionResponse, processingTime: number): TransformedAnalysisResult {
+    // Enforce single-pineapple requirement
+    const detectionCount = (typeof data.total_detections === 'number'
+      ? data.total_detections
+      : (Array.isArray(data.detections) ? data.detections.length : 0));
+
+    if (detectionCount > 1) {
+      return {
+        isPineapple: false,
+        detectionConfidence: 0,
+        sweetness: null,
+        status: 'error',
+        message: 'Single Pineapple Scan Only.',
+        processingTime,
+      };
+    }
+
     // Convert detection results
     let boundingBox: { x: number; y: number; width: number; height: number } | undefined;
     

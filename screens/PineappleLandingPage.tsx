@@ -93,7 +93,7 @@ const PineappleLandingPage: React.FC = () => {
             transform: [{ scale: scaleAnim }]
           }]}>
             <Animated.Image 
-              source={require('../images/1.png')}
+              source={require('../assets/adaptive-icon.png')}
               style={styles.logo}
               resizeMode="contain"
             />

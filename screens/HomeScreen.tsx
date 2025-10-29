@@ -150,7 +150,7 @@ export default function HomeScreen() {
                         {analysis.category}
                       </Text>
                       <Text style={tw`text-sm text-gray-600`}>
-                        Sweetness: {analysis.sweetness ? analysis.sweetness.toFixed(1) : 'N/A'}/10
+                        Sweetness: {analysis.sweetness ? analysis.sweetness.toFixed(1) : 'N/A'}/100
                       </Text>
                     </View>
                   </View>

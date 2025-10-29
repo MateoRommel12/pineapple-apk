@@ -225,7 +225,7 @@ export default function PineappleUploader() {
               disabled={isAnalyzing}
             >
               <Upload width={20} height={20} color="white" />
-              <Text style={styles.analyzeText}>Analyze with Backend</Text>
+              <Text style={styles.analyzeText}>Scan</Text>
             </TouchableOpacity>
           )}
           
@@ -248,7 +248,7 @@ export default function PineappleUploader() {
               ) : result.status === 'error' ? (
                 <View style={styles.errorContainer}>
                   <X width={64} height={64} color={theme.colors.red[500]} />
-                  <Text style={styles.errorTitle}>Connection Error</Text>
+                  <Text style={styles.errorTitle}>Error</Text>
                   <Text style={styles.errorText}>{result.message}</Text>
                   <TouchableOpacity style={styles.resetButton} onPress={resetUploader}>
                     <Text style={styles.resetText}>Try Again</Text>

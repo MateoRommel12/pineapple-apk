@@ -118,10 +118,7 @@ export default function AnalysisHistoryScreen() {
                       {analysis.category}
                     </Text>
                     <Text style={tw`text-sm text-gray-600 mb-1`}>
-                      Sweetness: {analysis.sweetness ? analysis.sweetness.toFixed(1) : 'N/A'}/10
-                    </Text>
-                    <Text style={tw`text-xs text-gray-500`}>
-                      Confidence: {analysis.confidence}%
+                      Sweetness: {analysis.sweetness ? analysis.sweetness.toFixed(1) : 'N/A'}/100
                     </Text>
                   </View>
                 </View>

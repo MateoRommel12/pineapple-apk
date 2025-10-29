@@ -23,8 +23,11 @@ export default function HowItWorksScreen() {
         <View style={tw`mb-8`}>
           <Text style={tw`text-lg font-semibold text-gray-800 mb-2`}>1. Take or Upload a Photo</Text>
           <Text style={tw`text-base text-gray-600 leading-6`}>
-            Using your device's camera or photo library, capture or select a clear image of a pineapple. Make sure the 
+            • Using your device's camera or photo library, capture or select a clear image of a pineapple. Make sure the 
             pineapple is well-lit and the entire fruit is visible in the frame.
+          </Text>
+          <Text style={tw`text-base text-gray-600 leading-6`}>
+            • Take a photo of a single pineapple, not a bunch of pineapples.
           </Text>
         </View>
 
@@ -65,8 +68,12 @@ export default function HowItWorksScreen() {
             <Text style={tw`text-sm text-yellow-800 leading-5 ml-2`}>Accuracy Information</Text>
           </View>
           <Text style={tw`text-base text-gray-600 leading-6`}>
-            Our prediction model has been trained on over 10,000 pineapple samples with verified sweetness levels. The
+            • Our prediction model has been trained on over thousands of real pineapple samples with verified sweetness levels. The
             current model achieves 85% accuracy in predicting sweetness categories.
+          </Text>
+          <Text style={tw`text-base text-gray-600 leading-6`}>
+            • The accuracy of predictions may vary based on image quality and lighting conditions. For best results,
+            ensure good lighting and clear visibility of the pineapple.
           </Text>
         </View>
 
@@ -76,28 +83,28 @@ export default function HowItWorksScreen() {
               <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
             </View>
           </View>
-          <Text style={tw`text-sm text-gray-600`}>Very Sweet</Text>
-          <Text style={tw`text-sm text-gray-600`}>90%</Text>
-        </View>
-
-        <View style={tw`flex-row items-center justify-between`}>
-          <View style={tw`flex-1 mr-2`}>
-            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
-            </View>
-          </View>
-          <Text style={tw`text-sm text-gray-600`}>Medium Sweet</Text>
-          <Text style={tw`text-sm text-gray-600`}>85%</Text>
-        </View>
-
-        <View style={tw`flex-row items-center justify-between`}>
-          <View style={tw`flex-1 mr-2`}>
-            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
-            </View>
-          </View>
-          <Text style={tw`text-sm text-gray-600`}>Less Sweet</Text>
+          <Text style={tw`text-sm text-gray-600`}>High Sweetness</Text>
           <Text style={tw`text-sm text-gray-600`}>80%</Text>
+        </View>
+
+        <View style={tw`flex-row items-center justify-between`}>
+          <View style={tw`flex-1 mr-2`}>
+            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
+              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
+            </View>
+          </View>
+          <Text style={tw`text-sm text-gray-600`}>Medium Sweetness</Text>
+          <Text style={tw`text-sm text-gray-600`}>60%</Text>
+        </View>
+
+        <View style={tw`flex-row items-center justify-between`}>
+          <View style={tw`flex-1 mr-2`}>
+            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
+              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
+            </View>
+          </View>
+          <Text style={tw`text-sm text-gray-600`}>Low Sweetness</Text>
+          <Text style={tw`text-sm text-gray-600`}>40%</Text>
         </View>
 
         <TouchableOpacity style={tw`bg-yellow-50 rounded-xl p-4 mt-6`}>

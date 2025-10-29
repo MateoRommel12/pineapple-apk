@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -68,6 +69,19 @@ function Navigation() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const ensureFreshInstallCleanup = async () => {
+      try {
+        const firstRunFlag = await AsyncStorage.getItem('@first_run_completed');
+        if (!firstRunFlag) {
+          await AsyncStorage.removeItem('@analysis_history');
+          await AsyncStorage.setItem('@first_run_completed', 'true');
+        }
+      } catch {}
+    };
+    ensureFreshInstallCleanup();
+  }, []);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>

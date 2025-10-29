@@ -52,7 +52,7 @@ export const handleApiError = (error: any): ApiError => {
       error.message?.includes('fetch')) {
     return {
       code: 'NETWORK_FAILED',
-      message: 'Unable to connect to the server. Please check that the backend is running.',
+      message: 'No Internet Connection. Please try again.',
       details: error,
     };
   }

@@ -17,7 +17,6 @@ export interface LocalAnalysisResult {
     qualityMetrics: {
       ripeness: string;
       eatingExperience: string;
-      bestUse: string;
     };
     method: string;
     processingTime: number;
@@ -116,7 +115,7 @@ class LocalAnalysisService {
         displayTitle: this.getDisplayTitle(sweetnessLevel),
         colorIndicator: this.getColorIndicator(sweetnessLevel),
         emoji: '🍍',
-        recommendation: this.getRecommendation(sweetnessLevel),
+        recommendation: '', // Removed - no longer displayed
         characteristics: [
           `Sweetness: ${Math.round(sweetnessLevel)}%`,
           `Confidence: ${Math.round((0.6 + Math.random() * 0.3) * 100)}%`,
@@ -126,7 +125,6 @@ class LocalAnalysisService {
         qualityMetrics: {
           ripeness: sweetnessLevel >= 70 ? 'Ready' : sweetnessLevel >= 50 ? 'Good' : 'Wait',
           eatingExperience: sweetnessLevel >= 70 ? 'Great' : sweetnessLevel >= 50 ? 'Good' : 'OK',
-          bestUse: sweetnessLevel >= 60 ? 'Eat fresh' : 'Cook with it'
         },
         method: 'local_analysis',
         processingTime: 1000 + Math.random() * 500,
@@ -226,39 +224,46 @@ class LocalAnalysisService {
   }
 
   // Helper methods for sweetness analysis
+  /**
+   * Get sweetness category from percentage
+   * Consistent with HelpModal: 75-100% (High), 60-74% (Medium), 0-59% (Low)
+   */
   private getSweetnessCategory(sweetness: number): string {
-    if (sweetness >= 80) return 'High Sweetness';
+    if (sweetness >= 75) return 'High Sweetness';
     if (sweetness >= 60) return 'Medium Sweetness';
-    if (sweetness >= 40) return 'Low Sweetness';
-    return 'Very Low Sweetness';
+    return 'Low Sweetness';
   }
 
+  /**
+   * Get sweetness class from percentage
+   * Consistent with HelpModal: 75-100% (High), 60-74% (Medium), 0-59% (Low)
+   */
   private getSweetnessClass(sweetness: number): string {
-    if (sweetness >= 70) return 'High';
-    if (sweetness >= 50) return 'Medium';
+    if (sweetness >= 75) return 'High';
+    if (sweetness >= 60) return 'Medium';
     return 'Low';
   }
 
+  /**
+   * Get display title based on sweetness
+   * Consistent with HelpModal: 75-100% (High), 60-74% (Medium), 0-59% (Low)
+   */
   private getDisplayTitle(sweetness: number): string {
-    if (sweetness >= 75) return 'Sweet & Ready';
-    if (sweetness >= 60) return 'Good Sweetness';
-    if (sweetness >= 45) return 'Moderate';
-    return 'Not Ripe';
+    if (sweetness >= 75) return 'High';
+    if (sweetness >= 60) return 'Medium';
+    return 'Low';
   }
 
+  /**
+   * Get color indicator based on sweetness
+   * Consistent with HelpModal: 75-100% (Green), 60-74% (Blue), 0-59% (Amber)
+   */
   private getColorIndicator(sweetness: number): string {
     if (sweetness >= 75) return '#22C55E'; // Green
     if (sweetness >= 60) return '#3B82F6'; // Blue
-    if (sweetness >= 45) return '#F59E0B'; // Amber
-    return '#6B7280'; // Gray
+    return '#F59E0B'; // Amber
   }
 
-  private getRecommendation(sweetness: number): string {
-    if (sweetness >= 75) return 'Perfect for eating';
-    if (sweetness >= 60) return 'Great for most uses';
-    if (sweetness >= 45) return 'Best for cooking';
-    return 'Wait a few days';
-  }
 }
 
 // Export singleton instance

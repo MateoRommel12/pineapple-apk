@@ -92,7 +92,6 @@ export interface TransformedAnalysisResult {
     qualityMetrics: {
       ripeness: string;
       eatingExperience: string;
-      bestUse: string;
     };
     method: string;
     processingTime: number;
@@ -660,17 +659,15 @@ class ApiService {
         displayTitle: this.getDisplayTitle(sweetnessPercentage),
         colorIndicator: this.getColorIndicator(sweetnessPercentage),
         emoji: '🍍',
-        recommendation: this.getRecommendation(sweetnessPercentage),
+        recommendation: '', // Removed - no longer displayed
         characteristics: [
-          `Sweetness: ${sweetnessPercentage}%`,
-          `Confidence: ${(data.confidence * 100).toFixed(0)}%`,
-          `Method: Backend Analysis`,
-          'Detection: Pineapple'
+          `Sweetness level: ${sweetnessPercentage}%`,
+          `Ripeness: ${sweetnessPercentage >= 70 ? 'Ready to eat' : sweetnessPercentage >= 50 ? 'Almost ready' : 'Needs more time'}`,
+          `Best for: ${sweetnessPercentage >= 60 ? 'Eating fresh' : 'Cooking or juicing'}`
         ],
         qualityMetrics: {
           ripeness: sweetnessPercentage >= 70 ? 'Ready' : sweetnessPercentage >= 50 ? 'Good' : 'Wait',
-          eatingExperience: sweetnessPercentage >= 70 ? 'Great' : sweetnessPercentage >= 50 ? 'Good' : 'OK',
-          bestUse: sweetnessPercentage >= 60 ? 'Eat fresh' : 'Cook with it'
+          eatingExperience: sweetnessPercentage >= 70 ? 'Great' : sweetnessPercentage >= 50 ? 'Good' : 'Bad',
         },
         method: 'backend_analysis',
         processingTime: processingTime,
@@ -715,42 +712,32 @@ class ApiService {
 
   /**
    * Get sweetness category from percentage
+   * Consistent with HelpModal: 75-100% (High), 60-74% (Medium), 0-59% (Low)
    */
   private getSweetnessCategory(sweetness: number): string {
-    if (sweetness >= 80) return 'High Sweetness';
+    if (sweetness >= 75) return 'High Sweetness';
     if (sweetness >= 60) return 'Medium Sweetness';
-    if (sweetness >= 40) return 'Low Sweetness';
-    return 'Very Low Sweetness';
+    return 'Low Sweetness';
   }
 
   /**
    * Get display title based on sweetness
+   * Consistent with HelpModal: 75-100% (High), 60-74% (Medium), 0-59% (Low)
    */
   private getDisplayTitle(sweetness: number): string {
     if (sweetness >= 75) return 'High';
     if (sweetness >= 60) return 'Medium';
-    if (sweetness >= 45) return 'Low';
-    return 'Very Low';
+    return 'Low';
   }
 
   /**
    * Get color indicator based on sweetness
+   * Consistent with HelpModal: 75-100% (Green), 60-74% (Blue), 0-59% (Amber)
    */
   private getColorIndicator(sweetness: number): string {
     if (sweetness >= 75) return '#22C55E'; // Green
     if (sweetness >= 60) return '#3B82F6'; // Blue
-    if (sweetness >= 45) return '#F59E0B'; // Amber
-    return '#6B7280'; // Gray
-  }
-
-  /**
-   * Get recommendation based on sweetness
-   */
-  private getRecommendation(sweetness: number): string {
-    if (sweetness >= 75) return 'Perfect for eating';
-    if (sweetness >= 60) return 'Great for most uses';
-    if (sweetness >= 45) return 'Best for cooking';
-    return 'Wait a few days';
+    return '#F59E0B'; // Amber
   }
 
   /**

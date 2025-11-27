@@ -15,7 +15,6 @@ interface SweetnessAnalysisResult {
   qualityMetrics: {
     ripeness: string;
     eatingExperience: string;
-    bestUse: string;
   };
   method: string;
   processingTime: number;
@@ -56,31 +55,52 @@ export const AnalysisResultCard: React.FC<AnalysisResultCardProps> = ({
           <Text style={styles.scoreLabel}>Sweetness Score</Text>
         </View>
 
-        {/* Recommendation */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Recommendation</Text>
-          <View style={styles.recommendationCard}>
-            <Text style={styles.recommendationText}>{result.recommendation}</Text>
-          </View>
-        </View>
-
         {/* Analysis Details */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Analysis Details</Text>
+          <Text style={styles.sectionTitle}>What This Means</Text>
           <View style={styles.detailsCard}>
-            {result.characteristics.slice(0, 3).map((characteristic, index) => (
-              <View key={index} style={styles.characteristicRow}>
-                <View style={styles.bullet} />
-                <Text style={styles.characteristicText}>{characteristic}</Text>
-              </View>
-            ))}
+            {/* Show quality metrics if available, otherwise filter technical characteristics */}
+            {result.qualityMetrics ? (
+              <>
+                <View style={styles.characteristicRow}>
+                  <View style={styles.bullet} />
+                  <Text style={styles.characteristicText}>
+                    <Text style={styles.boldText}>Ripeness:</Text> {result.qualityMetrics.ripeness}
+                  </Text>
+                </View>
+                <View style={styles.characteristicRow}>
+                  <View style={styles.bullet} />
+                  <Text style={styles.characteristicText}>
+                    <Text style={styles.boldText}>Eating Experience:</Text> {result.qualityMetrics.eatingExperience}
+                  </Text>
+                </View>
+              </>
+            ) : (
+              // Filter out technical terms and show only user-friendly characteristics
+              result.characteristics
+                .filter(char => {
+                  const lower = char.toLowerCase();
+                  // Exclude technical terms
+                  return !lower.includes('confidence') && 
+                         !lower.includes('method:') && 
+                         !lower.includes('detection:') &&
+                         !lower.includes('processing');
+                })
+                .slice(0, 3)
+                .map((characteristic, index) => (
+                  <View key={index} style={styles.characteristicRow}>
+                    <View style={styles.bullet} />
+                    <Text style={styles.characteristicText}>{characteristic}</Text>
+                  </View>
+                ))
+            )}
           </View>
         </View>
 
         {/* Action Button */}
         {onRetry && (
           <Pressable style={styles.actionButton} onPress={onRetry}>
-            <Text style={styles.actionButtonText}>Analyze Another</Text>
+            <Text style={styles.actionButtonText}>Scan Again</Text>
           </Pressable>
         )}
       </Animated.View>
@@ -140,19 +160,7 @@ const styles = StyleSheet.create({
     color: '#374151',
     marginBottom: 16,
   },
-  recommendationCard: {
-    backgroundColor: '#FEF3C7',
-    borderRadius: 12,
-    padding: 20,
-    borderLeftWidth: 4,
-    borderLeftColor: '#D97706',
-  },
-  recommendationText: {
-    fontSize: 16,
-    color: '#92400E',
-    lineHeight: 24,
-    fontWeight: '500',
-  },
+
   detailsCard: {
     backgroundColor: '#F9FAFB',
     borderRadius: 12,
@@ -178,6 +186,10 @@ const styles = StyleSheet.create({
     color: '#374151',
     lineHeight: 22,
     flex: 1,
+  },
+  boldText: {
+    fontWeight: '600',
+    color: '#111827',
   },
   actionButton: {
     backgroundColor: '#3B82F6',

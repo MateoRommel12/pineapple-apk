@@ -12,6 +12,7 @@ import { DeviceEventEmitter } from 'react-native';
 import PineappleUploader from "../components/PineappleUploader";
 import BackendStatusIndicator from "../components/BackendStatusIndicator";
 import { SafeHeader } from "../components/SafeHeader";
+import { HelpModal } from "../components/HelpModal";
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -27,6 +28,7 @@ interface AnalysisRecord {
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const [recentAnalyses, setRecentAnalyses] = React.useState<AnalysisRecord[]>([]);
+  const [showHelpModal, setShowHelpModal] = React.useState(false);
 
   React.useEffect(() => {
     loadRecentAnalyses();
@@ -83,9 +85,14 @@ export default function HomeScreen() {
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeHeader 
-        title="PIN-AI-PLE" 
-        showBackButton={true}
-        onBackPress={() => navigation.navigate('PineappleLandingPage')}
+        title="PIN-AI-PLE"
+        showHelpButton={true}
+        onHelpPress={() => setShowHelpModal(true)}
+      />
+      
+      <HelpModal 
+        visible={showHelpModal}
+        onClose={() => setShowHelpModal(false)}
       />
       
       <ScrollView 

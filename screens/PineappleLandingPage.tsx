@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../types/navigation';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronRight } from 'lucide-react-native';
@@ -65,8 +66,18 @@ const PineappleLandingPage: React.FC = () => {
     outputRange: ['0deg', '360deg'],
   });
 
-  const handleGetStarted = () => {
-    navigation.navigate('Home'); // Navigate to the HomeScreen
+  const handleGetStarted = async () => {
+    try {
+      // Mark that the user has completed the first run
+      await AsyncStorage.setItem('@first_run_completed', 'true');
+      console.log('First run completed flag saved to AsyncStorage');
+      // Navigate to the HomeScreen
+      navigation.navigate('Home');
+    } catch (error) {
+      console.error('Error saving first run status:', error);
+      // Still navigate even if there's an error
+      navigation.navigate('Home');
+    }
   };
 
   return (

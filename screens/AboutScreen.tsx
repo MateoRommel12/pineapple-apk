@@ -1,18 +1,13 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import tw from 'twrnc';
-import { useNavigation } from "@react-navigation/native";
 import { SafeHeader } from "../components/SafeHeader";
 
 export default function AboutScreen() {
-  const navigation = useNavigation();
-
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeHeader 
         title="About The Project" 
-        showBackButton={true}
-        onBackPress={() => navigation.goBack()}
       />
       <ScrollView style={tw`flex-1`}>
         <View style={tw`p-5`}>
@@ -57,7 +52,7 @@ export default function AboutScreen() {
           <Text style={tw`text-lg font-semibold text-gray-800 mb-3`}>Contact Us</Text>
           <TouchableOpacity 
             style={tw`bg-yellow-500 rounded-lg p-4 items-center`}
-            onPress={() => Linking.openURL('mailto:support@pineappleapp.com')}
+            onPress={() => Linking.openURL('mailto:bagunajulius@gmail.com')}
           >
             <Text style={tw`text-white font-semibold`}>Email Support</Text>
           </TouchableOpacity>

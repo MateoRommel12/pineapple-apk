@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from "expo-status-bar";
+import { View, ActivityIndicator } from 'react-native';
 import { ThemeProvider } from "./context/ThemeContext";
 import { theme } from './theme';
 import { RootStackParamList } from "./types/navigation";
@@ -16,10 +17,10 @@ import AnalysisHistoryScreen from "./screens/AnalysisHistoryScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function Navigation() {
+function Navigation({ initialRoute }: { initialRoute: keyof RootStackParamList }) {
   return (
     <Stack.Navigator
-      initialRouteName="PineappleLandingPage" // Set the landing page as the initial route
+      initialRouteName={initialRoute}
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.colors.yellow[500],
@@ -69,18 +70,48 @@ function Navigation() {
 }
 
 export default function App() {
+  const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    const ensureFreshInstallCleanup = async () => {
+    const checkFirstLaunch = async () => {
       try {
         const firstRunFlag = await AsyncStorage.getItem('@first_run_completed');
+        console.log('First run flag:', firstRunFlag);
+        
         if (!firstRunFlag) {
+          // First time launch - show landing page
+          // Clean up any existing analysis history for fresh install
           await AsyncStorage.removeItem('@analysis_history');
-          await AsyncStorage.setItem('@first_run_completed', 'true');
+          setInitialRoute('PineappleLandingPage');
+          console.log('Setting initial route to: PineappleLandingPage');
+        } else {
+          // Not first launch - go directly to Home
+          setInitialRoute('Home');
+          console.log('Setting initial route to: Home');
         }
-      } catch {}
+      } catch (error) {
+        console.error('Error checking first launch:', error);
+        // On error, default to landing page
+        setInitialRoute('PineappleLandingPage');
+      } finally {
+        setIsLoading(false);
+      }
     };
-    ensureFreshInstallCleanup();
+
+    checkFirstLaunch();
   }, []);
+
+  // Show loading screen while checking AsyncStorage
+  if (isLoading || initialRoute === null) {
+    return (
+      <SafeAreaProvider>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.yellow[500] }}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      </SafeAreaProvider>
+    );
+  }
 
   return (
     <SafeAreaProvider>
@@ -91,7 +122,7 @@ export default function App() {
             backgroundColor={theme.colors.yellow[500]}
             translucent={false}
           />
-          <Navigation />
+          <Navigation initialRoute={initialRoute} />
         </ThemeProvider>
       </NavigationContainer>
     </SafeAreaProvider>

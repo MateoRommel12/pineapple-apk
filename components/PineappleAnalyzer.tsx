@@ -118,11 +118,6 @@ export default function PineappleAnalyzer({ imageUri }: PineappleAnalyzerProps) 
           <Text style={styles.resultValue}>{result.sweetnessLevel}</Text>
         </View>
         
-        <View style={styles.resultBox}>
-          <Text style={styles.resultTitle}>Recommendation</Text>
-          <Text style={styles.resultValue}>{result.recommendation}</Text>
-        </View>
-        
         <View style={styles.characteristicsBox}>
           <Text style={styles.resultTitle}>Analysis Details</Text>
           {result.characteristics.map((characteristic, index) => (

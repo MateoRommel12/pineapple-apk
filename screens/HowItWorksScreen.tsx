@@ -3,20 +3,14 @@ import { View, Text, ScrollView, Image } from 'react-native';
 import tw from 'twrnc';
 import { Info } from "react-native-feather"
 import { TouchableOpacity } from "react-native"
-import { useNavigation } from "@react-navigation/native";
-
 import { theme } from "../theme"
 import { SafeHeader } from "../components/SafeHeader"
 
 export default function HowItWorksScreen() {
-  const navigation = useNavigation();
-
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeHeader 
         title="How It Works" 
-        showBackButton={true}
-        onBackPress={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={tw`p-5`}>
 
@@ -55,6 +49,27 @@ export default function HowItWorksScreen() {
           </View>
         </View>
 
+        <View style={tw`mb-8`}>
+          <Text style={tw`text-lg font-semibold text-gray-800 mb-2`}>What This Means</Text>
+          <Text style={tw`text-base text-gray-600 leading-6 mb-4`}>
+            Quality metrics help you understand the pineapple better:
+          </Text>
+          
+          <View style={tw`bg-gray-50 rounded-xl p-4 mb-3`}>
+            <Text style={tw`text-base font-semibold text-gray-800 mb-2`}>Ripeness</Text>
+            <Text style={tw`text-sm text-gray-600 leading-5`}>
+              Indicates how ready the pineapple is to eat. Values include "Ready", "Good", or "Wait".
+            </Text>
+          </View>
+
+          <View style={tw`bg-gray-50 rounded-xl p-4`}>
+            <Text style={tw`text-base font-semibold text-gray-800 mb-2`}>Eating Experience</Text>
+            <Text style={tw`text-sm text-gray-600 leading-5`}>
+              Describes the expected taste and texture quality. Values include "Great", "Good", or "Bad".
+            </Text>
+          </View>
+        </View>
+
         <View style={tw`bg-yellow-50 rounded-xl p-4 mb-6`}>
           <Text style={tw`text-sm text-yellow-800 leading-5`}>
             Note: The accuracy of predictions may vary based on image quality and lighting conditions. For best results, 
@@ -84,7 +99,7 @@ export default function HowItWorksScreen() {
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>High Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>80%</Text>
+          <Text style={tw`text-sm text-gray-600`}>75-100%</Text>
         </View>
 
         <View style={tw`flex-row items-center justify-between`}>
@@ -94,7 +109,7 @@ export default function HowItWorksScreen() {
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>Medium Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>60%</Text>
+          <Text style={tw`text-sm text-gray-600`}>60-74%</Text>
         </View>
 
         <View style={tw`flex-row items-center justify-between`}>
@@ -104,7 +119,7 @@ export default function HowItWorksScreen() {
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>Low Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>40%</Text>
+          <Text style={tw`text-sm text-gray-600`}>0-59%</Text>
         </View>
 
         <TouchableOpacity style={tw`bg-yellow-50 rounded-xl p-4 mt-6`}>

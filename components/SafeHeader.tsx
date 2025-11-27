@@ -1,35 +1,39 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ArrowLeft } from 'react-native-feather';
+import { HelpCircle } from 'react-native-feather';
 import { theme } from '../theme';
 
 interface SafeHeaderProps {
   title: string;
-  showBackButton?: boolean;
-  onBackPress?: () => void;
   rightComponent?: React.ReactNode;
+  showHelpButton?: boolean;
+  onHelpPress?: () => void;
 }
 
 export const SafeHeader: React.FC<SafeHeaderProps> = ({
   title,
-  showBackButton = false,
-  onBackPress,
   rightComponent,
+  showHelpButton = false,
+  onHelpPress,
 }) => {
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
         <View style={styles.leftSection}>
-          {showBackButton && (
-            <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
-              <ArrowLeft width={24} height={24} color="#fff" />
-            </TouchableOpacity>
-          )}
           <Text style={styles.title}>{title}</Text>
         </View>
         
         <View style={styles.rightSection}>
+          {showHelpButton && (
+            <TouchableOpacity 
+              onPress={onHelpPress} 
+              style={styles.helpButton}
+              activeOpacity={0.7}
+            >
+              <HelpCircle width={24} height={24} color="#fff" />
+            </TouchableOpacity>
+          )}
           {rightComponent}
         </View>
       </View>
@@ -55,16 +59,18 @@ const styles = StyleSheet.create({
   },
   rightSection: {
     flex: 1,
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 8,
+  },
+  helpButton: {
+    padding: 4,
+    marginRight: 4,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-    marginLeft: 8, // Space between back button and title
-  },
-  backButton: {
-    padding: 8,
-    marginLeft: -8, // Adjust for better visual alignment
   },
 });

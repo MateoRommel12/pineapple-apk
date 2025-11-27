@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Image, TouchableOpacity, Alert, DeviceEventEmit
 import { Calendar, Trash2 } from 'react-native-feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import tw from 'twrnc';
-import { useNavigation } from "@react-navigation/native";
 import { SafeHeader } from "../components/SafeHeader";
 
 interface AnalysisRecord {
@@ -16,7 +15,6 @@ interface AnalysisRecord {
 }
 
 export default function AnalysisHistoryScreen() {
-  const navigation = useNavigation();
   const [analyses, setAnalyses] = React.useState<AnalysisRecord[]>([]);
 
   React.useEffect(() => {
@@ -79,8 +77,6 @@ export default function AnalysisHistoryScreen() {
     <View style={tw`flex-1 bg-white`}>
       <SafeHeader 
         title="Analysis History" 
-        showBackButton={true}
-        onBackPress={() => navigation.goBack()}
         rightComponent={
           analyses.length > 0 ? (
             <TouchableOpacity 

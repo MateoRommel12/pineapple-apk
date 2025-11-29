@@ -10,7 +10,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DeviceEventEmitter } from 'react-native';
 
 import PineappleUploader from "../components/PineappleUploader";
-import BackendStatusIndicator from "../components/BackendStatusIndicator";
 import { SafeHeader } from "../components/SafeHeader";
 import { HelpModal } from "../components/HelpModal";
 

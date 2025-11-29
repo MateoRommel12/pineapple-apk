@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
+import { theme } from '../theme';
 // Define the interface locally since mlService is not available
 interface SweetnessAnalysisResult {
   sweetness: number;
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     color: '#111827',
   },
   actionButton: {
-    backgroundColor: '#3B82F6',
+    backgroundColor: theme.colors.yellow[500],
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',

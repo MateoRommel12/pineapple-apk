@@ -27,7 +27,7 @@ export default function App() {
           <Stack.Screen 
             name="Home" 
             component={HomeScreen} 
-            options={{ title: '🍍 PIN-AI-PLE' }} 
+            options={{ title: '🍍 PINE-AI-PLE' }} 
           />
           <Stack.Screen 
             name="HowItWorks" 

@@ -84,7 +84,7 @@ export default function HomeScreen() {
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeHeader 
-        title="PIN-AI-PLE"
+        title="PINE-AI-PLE"
         showHelpButton={true}
         onHelpPress={() => setShowHelpModal(true)}
       />

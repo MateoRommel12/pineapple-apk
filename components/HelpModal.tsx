@@ -7,9 +7,12 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import { X } from 'react-native-feather';
 import { theme } from '../theme';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface HelpModalProps {
   visible: boolean;
@@ -60,7 +63,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
           <ScrollView 
             style={styles.content}
             contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={true}
             nestedScrollEnabled={true}
             bounces={true}
             scrollEventThrottle={16}
@@ -126,12 +129,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     width: '90%',
-    maxHeight: '80%',
+    maxHeight: SCREEN_HEIGHT * 0.8,
+    height: SCREEN_HEIGHT * 0.7,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 8,
     elevation: 8,
+    overflow: 'hidden',
   },
   header: {
     flexDirection: 'row',

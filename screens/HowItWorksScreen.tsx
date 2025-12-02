@@ -84,7 +84,7 @@ export default function HowItWorksScreen() {
           </View>
           <Text style={tw`text-base text-gray-600 leading-6`}>
             • Our prediction model has been trained on over thousands of real pineapple samples with verified sweetness levels. The
-            current model achieves 85% accuracy in predicting sweetness categories.
+            current model achieves 87% accuracy in predicting sweetness categories.
           </Text>
           <Text style={tw`text-base text-gray-600 leading-6`}>
             • The accuracy of predictions may vary based on image quality and lighting conditions. For best results,
@@ -95,7 +95,7 @@ export default function HowItWorksScreen() {
         <View style={tw`flex-row items-center justify-between`}>
           <View style={tw`flex-1 mr-2`}>
             <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
+              <View style={[tw`h-2 rounded-full`, { width: '100%', backgroundColor: '#22C55E' }]}></View>
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>High Sweetness</Text>
@@ -105,7 +105,7 @@ export default function HowItWorksScreen() {
         <View style={tw`flex-row items-center justify-between`}>
           <View style={tw`flex-1 mr-2`}>
             <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
+              <View style={[tw`h-2 rounded-full`, { width: '67%', backgroundColor: '#3B82F6' }]}></View>
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>Medium Sweetness</Text>
@@ -115,7 +115,7 @@ export default function HowItWorksScreen() {
         <View style={tw`flex-row items-center justify-between`}>
           <View style={tw`flex-1 mr-2`}>
             <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={tw`h-2 bg-yellow-500 rounded-full`}></View>
+              <View style={[tw`h-2 rounded-full`, { width: '29.5%', backgroundColor: '#F59E0B' }]}></View>
             </View>
           </View>
           <Text style={tw`text-sm text-gray-600`}>Low Sweetness</Text>

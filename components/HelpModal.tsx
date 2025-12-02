@@ -46,7 +46,10 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
       onRequestClose={onClose}
     >
       <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={styles.modalContainer} onPress={(e) => e.stopPropagation()}>
+        <View 
+          style={styles.modalContainer}
+          onStartShouldSetResponder={() => true}
+        >
           <View style={styles.header}>
             <Text style={styles.title}>Sweetness Guide</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
@@ -56,7 +59,11 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
 
           <ScrollView 
             style={styles.content}
+            contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+            bounces={true}
+            scrollEventThrottle={16}
           >
             {/* Sweetness Levels Section */}
             <View style={styles.section}>
@@ -102,7 +109,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
 
             </View>
           </ScrollView>
-        </Pressable>
+        </View>
       </Pressable>
     </Modal>
   );
@@ -143,6 +150,9 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   content: {
+    flex: 1,
+  },
+  contentContainer: {
     padding: 20,
   },
   section: {

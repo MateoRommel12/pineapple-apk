@@ -1,15 +1,17 @@
 /**
  * API Configuration for Backend Integration
  * 
- * This file contains configuration settings for connecting to the Flask backend.
+ * This file contains configuration settings for connecting to the FastAPI backend.
  * Currently configured for production deployment on Hugging Face Spaces.
+ * 
+ * Based on MOBILE_INTEGRATION_REACT_NATIVE.md documentation.
  */
 
 // Network configuration
 export const API_CONFIG = {
   // Production configuration
   // Using deployed backend on Hugging Face Spaces (Gradio)
-  BASE_URL: 'https://melzkie-pineapple-detector-backend.hf.space', // Hugging Face Spaces Gradio API endpoint
+  BASE_URL: 'https://avrill-backend-pineapple-api.hf.space', // Hugging Face Spaces Gradio API endpoint
   // Alternative configurations for local development:
    //BASE_URL: 'http://192.168.0.128:8000', // Local development server
   // BASE_URL: 'http://10.0.2.2:8000',      // Android Emulator
@@ -39,12 +41,12 @@ export const API_CONFIG = {
   RESIZE_IMAGES: true,      // Enable image resizing
   MAX_DIMENSION: 1024,      // Max width/height in pixels
   
-  // Endpoints (Docker/Flask format)
+  // Endpoints (FastAPI format - matches MOBILE_INTEGRATION_REACT_NATIVE.md)
   ENDPOINTS: {
-    TEST: '/health',      // Docker health endpoint
-    HEALTH: '/health',    // Docker health endpoint
-    PREDICT: '/predict',  // Docker prediction endpoint
-    HISTORY: '/history',  // Docker history endpoint
+    TEST: '/health',      // Health check endpoint
+    HEALTH: '/health',    // Health check endpoint
+    PREDICT: '/predict',  // Prediction endpoint - returns { is_pineapple, prediction, sweetness_confidence, probabilities, detections }
+    HISTORY: '/history',  // History endpoint (optional)
   },
 };
 

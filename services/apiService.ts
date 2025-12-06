@@ -32,6 +32,7 @@ export interface BackendPredictionResponse {
   image_path: string;
   is_pineapple: boolean;
   detection_confidence: number;
+  detection_confidence_percent?: number;
   detection_threshold: number;
   confidence_threshold: number;
   detections: BackendDetectionResult[];
@@ -39,12 +40,27 @@ export interface BackendPredictionResponse {
   all_detections: BackendDetectionResult[];
   debug_info: any;
   prediction: string | null; // 'High', 'Medium', 'Low' or null if no pineapple
+  sweetness?: string | null; // 'High', 'Medium', 'Low' or null
   confidence: number | null; // Sweetness confidence
+  sweetness_confidence?: number | null; // Alternative field name
+  sweetness_confidence_percent?: number | null;
   probabilities: {
     High?: number;
     Medium?: number;
     Low?: number;
   } | null;
+  probabilities_percent?: {
+    High?: number;
+    Medium?: number;
+    Low?: number;
+  } | null;
+  visualization?: string | null; // Base64-encoded PNG image with data URI prefix
+  feature_explanations?: {
+    eyes: string[];
+    texture: string[];
+    shape: string[];
+  } | null;
+  message?: string;
 }
 
 export interface BackendHealthResponse {
@@ -96,6 +112,15 @@ export interface TransformedAnalysisResult {
     method: string;
     processingTime: number;
   } | null;
+  // New visualization fields from backend
+  visualization?: string | null; // Base64-encoded PNG image
+  featureExplanations?: {
+    eyes: string[];
+    texture: string[];
+    shape: string[];
+  } | null;
+  // Raw API response for direct access (optional)
+  rawApiResponse?: BackendPredictionResponse;
   status: 'success' | 'no_pineapple' | 'error';
   message: string;
   processingTime: number;
@@ -679,8 +704,12 @@ class ApiService {
       detectionConfidence: data.detection_confidence,
       boundingBox,
       sweetness,
+      // Pass through visualization and feature explanations
+      visualization: data.visualization || null,
+      featureExplanations: data.feature_explanations || null,
+      rawApiResponse: data, // Store raw response for direct API format access
       status: data.is_pineapple ? 'success' : 'no_pineapple',
-      message: data.is_pineapple ? 'Analysis completed successfully' : 'No pineapple detected in the image',
+      message: data.message || (data.is_pineapple ? 'Analysis completed successfully' : 'No pineapple detected in the image'),
       processingTime,
     };
   }

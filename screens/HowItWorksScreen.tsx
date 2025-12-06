@@ -83,43 +83,12 @@ export default function HowItWorksScreen() {
             <Text style={tw`text-sm text-yellow-800 leading-5 ml-2`}>Accuracy Information</Text>
           </View>
           <Text style={tw`text-base text-gray-600 leading-6`}>
-            • Our prediction model has been trained on over thousands of real pineapple samples with verified sweetness levels. The
-            current model achieves 87% accuracy in predicting sweetness categories.
+            • Our prediction model has been trained on over thousands of real pineapple samples with verified sweetness levels.
           </Text>
           <Text style={tw`text-base text-gray-600 leading-6`}>
             • The accuracy of predictions may vary based on image quality and lighting conditions. For best results,
             ensure good lighting and clear visibility of the pineapple.
           </Text>
-        </View>
-
-        <View style={tw`flex-row items-center justify-between`}>
-          <View style={tw`flex-1 mr-2`}>
-            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={[tw`h-2 rounded-full`, { width: '100%', backgroundColor: '#22C55E' }]}></View>
-            </View>
-          </View>
-          <Text style={tw`text-sm text-gray-600`}>High Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>75-100%</Text>
-        </View>
-
-        <View style={tw`flex-row items-center justify-between`}>
-          <View style={tw`flex-1 mr-2`}>
-            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={[tw`h-2 rounded-full`, { width: '67%', backgroundColor: '#3B82F6' }]}></View>
-            </View>
-          </View>
-          <Text style={tw`text-sm text-gray-600`}>Medium Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>60-74%</Text>
-        </View>
-
-        <View style={tw`flex-row items-center justify-between`}>
-          <View style={tw`flex-1 mr-2`}>
-            <View style={tw`h-2 bg-gray-200 rounded-full overflow-hidden`}>
-              <View style={[tw`h-2 rounded-full`, { width: '29.5%', backgroundColor: '#F59E0B' }]}></View>
-            </View>
-          </View>
-          <Text style={tw`text-sm text-gray-600`}>Low Sweetness</Text>
-          <Text style={tw`text-sm text-gray-600`}>0-59%</Text>
         </View>
 
         <TouchableOpacity style={tw`bg-yellow-50 rounded-xl p-4 mt-6`}>

@@ -155,9 +155,6 @@ export default function HomeScreen() {
                       <Text style={tw`text-base font-medium text-gray-800 mb-1`}>
                         {analysis.category}
                       </Text>
-                      <Text style={tw`text-sm text-gray-600`}>
-                        Sweetness: {analysis.sweetness ? analysis.sweetness.toFixed(1) : 'N/A'}/100
-                      </Text>
                     </View>
                   </View>
                 </View>

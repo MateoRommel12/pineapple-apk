@@ -20,24 +20,45 @@ interface HelpModalProps {
 }
 
 export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
-  const sweetnessLevels = [
+  const featureExplanations = [
     {
-      range: '75-100%',
-      level: 'High Sweetness',
-      description: 'Excellent sweetness level. Perfect for eating fresh.',
-      color: '#22C55E',
-    },
-    {
-      range: '60-74%',
-      level: 'Medium Sweetness',
-      description: 'Good sweetness level. Great for most uses.',
+      name: 'Eyes',
+      icon: '👁️',
+      sweetnessType: 'High',
+      description: 'The eyes (scales) on the pineapple surface are analyzed to determine ripeness and sweetness.',
+      details: [
+        'Well-developed and prominent eyes indicate high sweetness',
+        'Clear, distinct eye patterns suggest good ripeness',
+        'Golden/yellow coloration in eyes shows optimal sweetness',
+        'Eyes that are flat or sunken may indicate lower sweetness',
+      ],
       color: '#3B82F6',
     },
     {
-      range: '0-59%',
-      level: 'Low Sweetness',
-      description: 'Moderate sweetness. Best for cooking or wait a few days.',
+      name: 'Texture',
+      icon: '🖐️',
+      sweetnessType: 'Medium',
+      description: 'The surface texture and skin appearance provide clues about the pineapple\'s sweetness level.',
+      details: [
+        'Smooth, firm texture indicates good ripeness and sweetness',
+        'Rich golden-yellow skin color suggests high sweetness',
+        'Slight give when pressed indicates optimal ripeness',
+        'Rough or hard texture may indicate lower sweetness',
+      ],
       color: '#F59E0B',
+    },
+    {
+      name: 'Shape',
+      icon: '📐',
+      sweetnessType: 'Low',
+      description: 'The overall shape and form of the pineapple help determine its quality and sweetness potential.',
+      details: [
+        'Full, rounded shape indicates good development and sweetness',
+        'Uniform size and symmetry suggest quality fruit',
+        'Plump appearance shows optimal ripeness',
+        'Irregular or flat shape may indicate lower sweetness',
+      ],
+      color: '#22C55E',
     },
   ];
 
@@ -54,7 +75,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
           onStartShouldSetResponder={() => true}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Sweetness Guide</Text>
+            <Text style={styles.title}>Why Sweetness?</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
               <X width={24} height={24} color="#6B7280" />
             </TouchableOpacity>
@@ -68,23 +89,45 @@ export const HelpModal: React.FC<HelpModalProps> = ({ visible, onClose }) => {
             bounces={true}
             scrollEventThrottle={16}
           >
-            {/* Sweetness Levels Section */}
+            {/* Feature Explanations Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Sweetness Levels</Text>
+              <Text style={styles.sectionTitle}>How We Determine Sweetness</Text>
               <Text style={styles.sectionDescription}>
-                Understanding what each sweetness percentage means:
+                Our AI analyzes three key features of the pineapple to predict its sweetness level. Here's what each feature means:
               </Text>
               
-              {sweetnessLevels.map((level, index) => (
-                <View key={index} style={styles.levelCard}>
-                  <View style={styles.levelHeader}>
-                    <View style={[styles.colorIndicator, { backgroundColor: level.color }]} />
-                    <View style={styles.levelInfo}>
-                      <Text style={styles.levelRange}>{level.range}</Text>
-                      <Text style={styles.levelName}>{level.level}</Text>
+              {featureExplanations.map((feature, index) => (
+                <View key={index} style={styles.featureCard}>
+                  <View style={styles.featureHeader}>
+                    <Text style={styles.featureIcon}>{feature.icon}</Text>
+                    <View style={styles.featureInfo}>
+                      <Text style={styles.featureName}>{feature.name}</Text>
+                      <View style={[
+                        styles.sweetnessBadge,
+                        feature.sweetnessType === 'High' && styles.badgeHigh,
+                        feature.sweetnessType === 'Medium' && styles.badgeMedium,
+                        feature.sweetnessType === 'Low' && styles.badgeLow,
+                      ]}>
+                        <Text style={[
+                          styles.sweetnessBadgeText,
+                          feature.sweetnessType === 'High' && styles.badgeTextHigh,
+                          feature.sweetnessType === 'Medium' && styles.badgeTextMedium,
+                          feature.sweetnessType === 'Low' && styles.badgeTextLow,
+                        ]}>
+                          {feature.sweetnessType} Sweetness Example
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                  <Text style={styles.levelDescription}>{level.description}</Text>
+                  <Text style={styles.featureDescription}>{feature.description}</Text>
+                  <View style={styles.detailsContainer}>
+                    {feature.details.map((detail, detailIndex) => (
+                      <View key={detailIndex} style={styles.detailRow}>
+                        <View style={[styles.detailBullet, { backgroundColor: feature.color }]} />
+                        <Text style={styles.detailText}>{detail}</Text>
+                      </View>
+                    ))}
+                  </View>
                 </View>
               ))}
             </View>
@@ -175,43 +218,86 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     lineHeight: 20,
   },
-  levelCard: {
+  featureCard: {
     backgroundColor: '#F9FAFB',
     borderRadius: 12,
     padding: 16,
-    marginBottom: 12,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: '#E5E7EB',
   },
-  levelHeader: {
+  featureHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 12,
   },
-  colorIndicator: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+  featureIcon: {
+    fontSize: 24,
     marginRight: 12,
   },
-  levelInfo: {
+  featureInfo: {
     flex: 1,
   },
-  levelRange: {
-    fontSize: 16,
-    fontWeight: '600',
+  featureName: {
+    fontSize: 18,
+    fontWeight: '700',
     color: '#111827',
+    marginBottom: 8,
   },
-  levelName: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginTop: 2,
+  sweetnessBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
   },
-  levelDescription: {
+  badgeHigh: {
+    backgroundColor: '#D1FAE5',
+  },
+  badgeMedium: {
+    backgroundColor: '#FEF3C7',
+  },
+  badgeLow: {
+    backgroundColor: '#FEE2E2',
+  },
+  sweetnessBadgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  badgeTextHigh: {
+    color: '#065F46',
+  },
+  badgeTextMedium: {
+    color: '#92400E',
+  },
+  badgeTextLow: {
+    color: '#991B1B',
+  },
+  featureDescription: {
     fontSize: 14,
     color: '#374151',
     lineHeight: 20,
-    marginLeft: 24,
+    marginBottom: 12,
+  },
+  detailsContainer: {
+    marginTop: 8,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 10,
+  },
+  detailBullet: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    marginTop: 7,
+    marginRight: 10,
+  },
+  detailText: {
+    fontSize: 13,
+    color: '#4A5568',
+    lineHeight: 20,
+    flex: 1,
   },
   metricCard: {
     backgroundColor: '#F9FAFB',
@@ -233,4 +319,5 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 });
+
 

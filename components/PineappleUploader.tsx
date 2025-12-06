@@ -257,7 +257,26 @@ export default function PineappleUploader() {
               ) : (
                 result.sweetness && (
                   <AnalysisResultCard
-                    result={result.sweetness}
+                    result={
+                      // If raw API response is available, use it for visualization support
+                      result.rawApiResponse 
+                        ? {
+                            is_pineapple: result.isPineapple,
+                            prediction: result.rawApiResponse.prediction,
+                            sweetness_confidence: result.rawApiResponse.sweetness_confidence || result.rawApiResponse.confidence,
+                            probabilities: result.rawApiResponse.probabilities_percent || result.rawApiResponse.probabilities,
+                            visualization: result.visualization || result.rawApiResponse.visualization || null,
+                            feature_explanations: result.featureExplanations || result.rawApiResponse.feature_explanations || null,
+                            detections: result.rawApiResponse.detections?.map(det => ({
+                              confidence: det.confidence,
+                              bbox: det.bbox,
+                              sweetness: (det as any).sweetness || result.rawApiResponse?.prediction || undefined,
+                              class: det.class,
+                              class_id: det.class_id,
+                            })),
+                          }
+                        : result.sweetness // Fallback to legacy format
+                    }
                     onRetry={resetUploader}
                   />
                 )
